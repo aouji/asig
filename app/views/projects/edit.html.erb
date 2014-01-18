@@ -1,0 +1,17 @@
+<%= form_for @proj do |f| %>
+	<div><%= f.label :title, "Project's title" %>
+	<br>
+	<%= f.text_field :title%>
+	</div>
+	<br>
+	<div>
+	<%= f.label :description, "Project's description" %>
+	<br>
+	<%= f.text_area :description  %>
+	</div>
+	<br>
+	<%= f.submit "Change" %>
+
+<% end %>
+<%= link_to "Index",projects_path,class: 'btn' %>
+<%= link_to "Remove",project_path,class: 'btn', method: 'delete',confirm: "Are you sure you want to remove project "+(@proj.id).to_s+"?" %>
