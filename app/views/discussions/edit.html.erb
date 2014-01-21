@@ -1,17 +1,4 @@
-<%= form_for @discus do |f| %>
-	<div><%= f.label :title, "Project's title" %>
-	<br>
-	<%= f.text_field :title %>
-	</div>
-	<br>
-	<div>
-	<%= f.label :description, "Project's description" %>
-	<br>
-	<%= f.text_area :description  %>
-	</div>
-	<br>
-	<%= f.submit "Change",class: 'btn btn-default' %>
-<% end %>
+<%= render "form" %>
 
 <%= link_to "Index",discussions_path,class: 'btn btn-default' %>
 <%= link_to "Remove",discussion_path, method: 'delete',confirm: "Are you sure you want to remove discussion "+(@discus.id).to_s+"?",class: 'btn btn-default' %>

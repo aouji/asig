@@ -1,5 +1,18 @@
 As1::Application.routes.draw do
-  resources :projects,:discussions
+  resources :projects 
+
+
+  # Get method for new page that will be projects/:id/like
+  # resources :projects do
+  #   get 'like', on: :member
+  # end
+
+  # Get method for new page that will be projects/test
+  # resources :projects do
+  #   get 'test', on: :collection
+  # end
+
+  resources :discussions
   
   root 'projects#index'
   post 'projects/:id' => 'projects#addlike'

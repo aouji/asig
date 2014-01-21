@@ -1,0 +1,22 @@
+<%= form_for @discus do |f| %>
+	<% if @discus.errors.any? %>
+		<ul>
+		<% @discus.errors.full_messages.each do |message| %>
+			<li class='rederror'><%= message %></li>
+		<% end %>
+		</ul>
+	<% end %>
+	<div><%= f.label :title, "Discussion's title" %>
+	<br>
+	<%= f.text_field :title%>
+	</div>
+	<br>
+	<div>
+	<%= f.label :description, "Discussion's description" %>
+	<br>
+	<%= f.text_area :description  %>
+	</div>
+	<br>
+	<%= f.submit "Save" %>
+
+<% end %>

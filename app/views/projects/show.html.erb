@@ -3,4 +3,8 @@
 <p> Number of likes: <%= @proj.like %></p>
 <%= link_to "Index",projects_path,class: 'btn btn-default' %>
 <%= link_to "Edit",edit_project_path,class: 'btn btn-default' %>
-<%= link_to "Like",project_path, method:'post',class: 'btn btn-default' %>
+<% if (session[:likes].present? && session[:likes].include?(@proj.id.to_s)) %>
+	<%= link_to "Liked",'javascript:void(0);',disabled: "disabled",class: 'btn btn-default' %>
+<% else %>
+	<%= link_to "Like",project_path(@proj), method:'post',class: 'btn btn-default' %>
+<%end %>

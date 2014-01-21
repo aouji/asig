@@ -1,7 +1,8 @@
 class DiscussionsController < ApplicationController
+	before_action :set_disc, only: [:edit, :update, :show,:destroy, :addlike]
 
 	def index
-		@discussions=Discussion.all
+		@discussions=Discussion.order ("hits DESC")
 	end
 	
 	def new
@@ -10,30 +11,37 @@ class DiscussionsController < ApplicationController
 
 	def create
 		@discus=Discussion.new params.require(:discussion).permit([:title,:description])
-		@discus.save
-		redirect_to discussions_path
+		if @discus.save
+			redirect_to discussions_path
+		else
+			render :new
+		end
 	end
 
 	def edit
-		@discus=Discussion.find(params[:id])
 	end
 
 	def update
-		@discus=Discussion.find(params[:id])
-		@discus.title=params[:discussion][:title]
-		@discus.description=params[:discussion][:description]
-		@discus.save
-		redirect_to discussion_path
+		if @discus.update_attributes params.require(:discussion).permit([:title,:description])
+			redirect_to discussions_path
+		else
+			render :edit
+		end
 	end
 
 	def show
-		@discus=Discussion.find(params[:id])
+		@discus.hits||=0
+		@discus.hits+=1
+		@discus.save
 	end
 
 	def destroy 
-		@discus=Discussion.find(params[:id])
 		@discus.destroy
 		redirect_to discussions_path
 	end
+	private
 
+	def set_disc
+		@discus=Discussion.find(params[:id])
+	end
 end
