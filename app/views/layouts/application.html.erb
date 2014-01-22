@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>As1</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
+<%= render "layouts/head" %>
 <body>
 <div class='container'>
+	<div class="page-header">
+	<% if session[:loggedin]=='true' %>
+		<%= link_to "Logout",logout_path,method: 'post',class: 'btn btn-default' %>
+	<% else %>
+		<%= link_to "Login",login_path,method: 'post',class: 'btn btn-default' %>
+	<% end %>
+</div>
+	<%=render "/layouts/flash" %>
 <%= yield %>
 </div>
 </body>

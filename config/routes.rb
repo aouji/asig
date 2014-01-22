@@ -1,10 +1,15 @@
 As1::Application.routes.draw do
-  resources :projects 
+  resources :projects do 
+    get :favorites, on: :collection
+  end
 
+  post 'login' => 'projects#login'
+  post 'logout' => 'projects#logout'
+  
 
   # Get method for new page that will be projects/:id/like
   # resources :projects do
-  #   get 'like', on: :member
+  #   get 'like', on: :member #or on: :collection
   # end
 
   # Get method for new page that will be projects/test
@@ -12,7 +17,10 @@ As1::Application.routes.draw do
   #   get 'test', on: :collection
   # end
 
-  resources :discussions
+  resources :discussions do
+    post :flag, on: :member
+  end
+
   
   root 'projects#index'
   post 'projects/:id' => 'projects#addlike'

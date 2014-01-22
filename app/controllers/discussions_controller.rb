@@ -1,6 +1,6 @@
 class DiscussionsController < ApplicationController
-	before_action :set_disc, only: [:edit, :update, :show,:destroy, :addlike]
-
+	before_action :set_disc, only: [:edit, :update, :show,:destroy, :addlike, :flag]
+  layout "discussions"
 	def index
 		@discussions=Discussion.order ("hits DESC")
 	end
@@ -39,6 +39,11 @@ class DiscussionsController < ApplicationController
 		@discus.destroy
 		redirect_to discussions_path
 	end
+
+  def flag
+    render :show
+  end
+
 	private
 
 	def set_disc

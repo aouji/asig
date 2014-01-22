@@ -17,6 +17,12 @@
 	<%= f.text_area :description  %>
 	</div>
 	<br>
+	<% if !@proj.persisted? %>
+	<div>
+	<%= f.check_box("terms",{}, "does", "no")  %>
+	<%= f.label :accept, "Accept or vanquish" %>
+	</div>
+	<% end %>
 	<%= f.submit "Save" %>
 
 <% end %>
