@@ -6,6 +6,7 @@
 <% @pp.each do |project| %>
 <tr>
 	<td> <%= link_to project.title, project %> </td>
+	<td> <%= truncate_s(project.description,10) %></td>
 	<td> <%= project.description %></td>
 	<td> <%= project.like %></td>
 	<td> <%= project.hits %></td>

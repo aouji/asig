@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
 	def index
 		# elders=Project.order("created_at DESC")[3..-1]
 		# elders||=[]
-		 @projects=Project.order ("hits DESC")
+		@projects=Project.nmostrs(5)
 		# @projects=[]
 		# projs.each do |proj|
 		# 	if elders.include? proj
@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
 		end
 
 		# ids=@recent_projs["Project"][:id]
-		@projects=@projects.select{|x| !ids.include?(x[:id])}
+		# @projects=@projects.select{|x| !ids.include?(x[:id])}
 		# @recent_projs.each do |del|
 		# 	@projects.delete(del)
 		# end
@@ -32,10 +32,12 @@ class ProjectsController < ApplicationController
 
 	def create
 
-		@proj=Project.new params.require(:project).permit([:title,:description,:terms])
+		@proj=Project.new params.require(:project).permit([:title,:description,:terms,{category_ids:[]}])
+		print @proj
 		#@proj.terms=params[:terms]
 		#p @proj
 		if @proj.save
+			print @proj
 			redirect_to projects_path
 		else
 			render :new
@@ -49,7 +51,7 @@ class ProjectsController < ApplicationController
 		# @proj.title=params[:project][:title]
 		# @proj.description=params[:project][:description]
 		# @proj.save
-		if @proj.update_attributes params.require(:project).permit([:title,:description])
+		if @proj.update_attributes params.require(:project).permit([:title,:description,{category_ids:[]}])
 			redirect_to projects_path
 		else
 			render :edit

@@ -17,6 +17,11 @@
 	<%= f.text_area :description  %>
 	</div>
 	<br>
+	<%= hidden_field_tag "project[category_ids][]",nil %>
+	<% Category.all.each do |cat| %>
+		<%= check_box_tag "project[category_ids][]",cat.id, @proj.categories.include?(cat),id: dom_id(cat) %>
+		<%= label_tag dom_id(cat), cat.name %>
+	<% end %>
 	<% if !@proj.persisted? %>
 	<div>
 	<%= f.check_box("terms",{}, "does", "no")  %>

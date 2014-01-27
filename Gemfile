@@ -22,7 +22,7 @@ gem 'rails_12factor'
 gem 'jquery-rails'
 
 gem 'bootstrap-sass'
-
+gem 'faker'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
