@@ -7,7 +7,6 @@
 <tr>
 	<td> <%= link_to project.title, project %> </td>
 	<td> <%= truncate_s(project.description,10) %></td>
-	<td> <%= project.description %></td>
 	<td> <%= project.like %></td>
 	<td> <%= project.hits %></td>
 	<td><%= link_to "Edit",edit_project_path(project),class: 'btn btn-default' %></td>
