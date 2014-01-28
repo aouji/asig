@@ -5,21 +5,23 @@
 <%= link_to "Index",projects_path,class: 'btn btn-default' %>
 <%= link_to "Edit",edit_project_path,class: 'btn btn-default' %>
 <% if @vote_cond=='upped' %>
-<%= form_tag(remove_project_votes_path(@proj), method: "delete") do%>
-	<%=hidden_field_tag 'vote','upback'%>
-	<%= submit_tag("Take back Upvote") %>
-	<% end %>
-<%elsif @vote_cond=='downed'%>
 	<%= form_tag(remove_project_votes_path(@proj), method: "delete") do%>
-		<%=hidden_field_tag 'vote','downback'%>
-		<%= submit_tag("Take back Downvote") %>
+		<%=hidden_field_tag 'vote','upback'%>
+		<%= submit_tag("Take back vote up") %>
 	<% end %>
 <% else %>
 	<%= form_tag(project_votes_path(@proj), method: 'post') do %>
 		<%=hidden_field_tag 'vote','up'%>
 		<%= submit_tag("Vote Up") %>
 	<% end %>
+<% end %>
 
+<%if @vote_cond=='downed'%>
+	<%= form_tag(remove_project_votes_path(@proj), method: "delete") do%>
+		<%=hidden_field_tag 'vote','downback'%>
+		<%= submit_tag("Take back vote down") %>
+	<% end %>
+<% else %>
 	<%= form_tag(project_votes_path(@proj), method: 'post') do %>
 		<%=hidden_field_tag 'vote','down'%>
 		<%= submit_tag("Vote Down") %>
