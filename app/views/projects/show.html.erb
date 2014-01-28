@@ -1,8 +1,31 @@
 <h1> <%= @proj.title %></h1>
 <p> <%= @proj.description %></p>
 <p> Number of likes: <%= @proj.like %></p>
+<p> Number of Votes: <%= @proj.vote_count %></p>
 <%= link_to "Index",projects_path,class: 'btn btn-default' %>
 <%= link_to "Edit",edit_project_path,class: 'btn btn-default' %>
+<% if @vote_cond=='upped' %>
+<%= form_tag(remove_project_votes_path(@proj), method: "delete") do%>
+	<%=hidden_field_tag 'vote','upback'%>
+	<%= submit_tag("Take back Upvote") %>
+	<% end %>
+<%elsif @vote_cond=='downed'%>
+	<%= form_tag(remove_project_votes_path(@proj), method: "delete") do%>
+		<%=hidden_field_tag 'vote','downback'%>
+		<%= submit_tag("Take back Downvote") %>
+	<% end %>
+<% else %>
+	<%= form_tag(project_votes_path(@proj), method: 'post') do %>
+		<%=hidden_field_tag 'vote','up'%>
+		<%= submit_tag("Vote Up") %>
+	<% end %>
+
+	<%= form_tag(project_votes_path(@proj), method: 'post') do %>
+		<%=hidden_field_tag 'vote','down'%>
+		<%= submit_tag("Vote Down") %>
+	<% end %>
+<% end %>
+
 <% if (session[:likes].present? && session[:likes].include?(@proj.id.to_s)) %>
 	<%= link_to "Liked",'javascript:void(0);',disabled: "disabled",class: 'btn btn-default' %>
 <% else %>

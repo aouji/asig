@@ -1,6 +1,10 @@
 As1::Application.routes.draw do
+  devise_for :users
   resources :projects do 
     get :favorites, on: :collection
+    resources :votes, only:[:create] do
+      delete :remove, on: :collection
+    end
   end
 
   post 'login' => 'projects#login'

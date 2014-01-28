@@ -1,8 +1,8 @@
 class ProjectsController < ApplicationController
 	before_action :set_proj, only: [:edit, :update, :show,:destroy, :addlike]
 	before_action :print_id, except: [:new, :index]
-	before_action :boot_out, only: [:edit,:update,:create,:new,:destroy,:addlike]
-
+	# before_action :boot_out, only: [:edit,:update,:create,:new,:destroy,:addlike]
+	before_action :authenticate_user!, only: [:create,:update,:destroy,:current_users_vote,:current_user_voted]
 	def index
 		# elders=Project.order("created_at DESC")[3..-1]
 		# elders||=[]
@@ -62,6 +62,13 @@ class ProjectsController < ApplicationController
 		@proj.hits||=0
 		@proj.hits+=1
 		@proj.save
+		if user_upped
+			@vote_cond='upped'
+		elsif user_downed
+			@vote_cond='downed'
+		else
+			@vote_cond='none'	
+		end	
 	end
 
 	def destroy 
@@ -113,8 +120,23 @@ class ProjectsController < ApplicationController
 		redirect_to projects_path
 	end
 
+	def user_upped
+		current_user_voted && current_users_vote=='up'
+	end
+
+	def user_downed
+		current_user_voted && current_users_vote=='down'
+	end
 
 	private
+
+	def current_users_vote
+		@proj.votes.find_by(user_id: current_user).vote_kind
+	end
+
+	def current_user_voted
+		@proj.voters.include? current_user
+	end
 
 	def boot_out
 		if session[:loggedin]!='true'

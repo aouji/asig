@@ -21,6 +21,8 @@ gem 'rails_12factor'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+gem 'devise', "~> 3.2.2"
+
 gem 'bootstrap-sass'
 gem 'faker'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

@@ -1,9 +1,11 @@
 class Project < ActiveRecord::Base
+
 	attr_accessor :terms
 
 	has_many :categorizations, dependent: :destroy
 	has_many :categories, through: :categorizations
-
+	has_many :votes, dependent: :destroy
+	has_many :voters, through: :votes, source: :user
 	scope :hitorder, -> {order('hits DESC')}
 	scope :likeorder, -> {order('likes DESC')}
 	scope :nmostrs, lambda{|n| order("created_at DESC").limit(n)}
@@ -18,6 +20,15 @@ class Project < ActiveRecord::Base
 	validates :title, length: {minimum: 10, message: "should be at least 10 characters."}
 	validates :description, presence: true
 	validates :terms, acceptance: {accept: 'does',message: "must be accepted."}
+		
+	def current_users_vote
+		votes.find_by(user_id: current_user).vote_kind
+	end
+
+	def current_user_voted
+		voters.include? current_user
+	end
+
 	private
 
 	def cap_it_all
@@ -28,5 +39,6 @@ class Project < ActiveRecord::Base
 	def print_message
 		Rails.logger.info "This is a message"
 	end
+
 
 end
