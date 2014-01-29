@@ -7,24 +7,24 @@
 <% if @vote_cond=='upped' %>
 	<%= form_tag(remove_project_votes_path(@proj), method: "delete") do%>
 		<%=hidden_field_tag 'vote','upback'%>
-		<%= submit_tag("Take back vote up") %>
+		<%= submit_tag("Take back vote up",class: 'btn btn-default') %>
 	<% end %>
 <% else %>
 	<%= form_tag(project_votes_path(@proj), method: 'post') do %>
 		<%=hidden_field_tag 'vote','up'%>
-		<%= submit_tag("Vote Up") %>
+		<%= submit_tag("Vote Up",class: 'btn btn-default') %>
 	<% end %>
 <% end %>
 
 <%if @vote_cond=='downed'%>
 	<%= form_tag(remove_project_votes_path(@proj), method: "delete") do%>
 		<%=hidden_field_tag 'vote','downback'%>
-		<%= submit_tag("Take back vote down") %>
+		<%= submit_tag("Take back vote down",class: 'btn btn-default') %>
 	<% end %>
 <% else %>
 	<%= form_tag(project_votes_path(@proj), method: 'post') do %>
 		<%=hidden_field_tag 'vote','down'%>
-		<%= submit_tag("Vote Down") %>
+		<%= submit_tag("Vote Down",class: 'btn btn-default') %>
 	<% end %>
 <% end %>
 
