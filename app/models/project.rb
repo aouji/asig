@@ -21,13 +21,6 @@ class Project < ActiveRecord::Base
 	validates :description, presence: true
 	validates :terms, acceptance: {accept: 'does',message: "must be accepted."}
 		
-	def current_users_vote
-		votes.find_by(user_id: current_user).vote_kind
-	end
-
-	def current_user_voted
-		voters.include? current_user
-	end
 
 	private
 
